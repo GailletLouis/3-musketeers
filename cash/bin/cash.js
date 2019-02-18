@@ -1,19 +1,28 @@
 'use strict';
-
+/**
+ * Calling the dependencies
+ */
 const got = require('got');
 const money = require('money');
 const chalk = require('chalk');
 const ora = require('ora');
 const currencies = require('../lib/currencies.json');
 
-const {API} = require('./constants');
+const { API } = require('./constants');
 
+/**
+ * 
+ * @param {*} command - cash command
+ */
 const cash = async command => {
-	const {amount} = command;
+	const { amount } = command;
 	const from = command.from.toUpperCase();
 	const to = command.to.filter(item => item !== from).map(item => item.toUpperCase());
 
 	console.log();
+	/**
+	 * Loading text structure
+	 */
 	const loading = ora({
 		text: 'Converting...',
 		color: 'green',
@@ -23,8 +32,14 @@ const cash = async command => {
 		}
 	});
 
+	/**
+	 * starting showing the loading text
+	 */
 	loading.start();
 
+	/**
+	 * 
+	 */
 	await got(API, {
 		json: true
 	}).then(response => {
@@ -33,7 +48,7 @@ const cash = async command => {
 
 		to.forEach(item => {
 			if (currencies[item]) {
-				loading.succeed(`${chalk.green(money.convert(amount, {from, to: item}).toFixed(3))} ${`(${item})`} ${currencies[item]}`);
+				loading.succeed(`${chalk.green(money.convert(amount, { from, to: item }).toFixed(3))} ${`(${item})`} ${currencies[item]}`);
 			} else {
 				loading.warn(`${chalk.yellow(`The "${item}" currency not found `)}`);
 			}
