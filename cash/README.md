@@ -16,3 +16,21 @@ Use [npm](https://www.npmjs.com/) to install the dependencies
 ```bash
 npm i
 ```
+
+
+## Usage
+
+Execute the app from cash directory
+
+```bash
+node bin/index.js
+```
+
+This should show something like this :
+
+```
+√ 0.888 (EUR) Euro
+√ 0.781 (GBP) British Pound Sterling
+√ 110.524 (JPY) Japanese Yen
+Conversion of USD 1                   
+```
